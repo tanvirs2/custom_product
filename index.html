@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+
+<style>
+    a {
+        text-decoration: none;
+    }
+    a>span {
+        border: 1px solid black;
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+    }
+    .left-function {
+
+    }
+    .btn {
+        padding: 5px 10px;
+        background: linear-gradient(#2632c1, #6437f1);
+        color: #ffffff;
+        border: 1px solid #666666;
+        border-radius: 3px;
+        margin:  1px;
+    }
+    .btn.active {
+        padding: 5px 10px;
+        background: linear-gradient(#89120b, #f14749);
+        color: #ffffff;
+        border: 1px solid #ff0819;
+    }
+</style>
+<div class="left-function">
+    <a href="#" class="btn active" id="design_1">Design 1</a>
+    <a href="#" class="btn" id="design_2" style="display: none">Design 2</a>
+    <a href="#" class="btn" id="design_3">Design 2</a>
+</div>
+
+
+<canvas id="canvas" width="500" height="600" ></canvas>
+
+
+<a href="#" class="">
+    <span class="btn btn-clr" style="background: #00cd66;"></span>
+</a>
+<a href="#" class="">
+    <span class="btn btn-clr" style="background: #cd3438;"></span>
+</a>
+<a href="#" class="">
+    <span class="btn btn-clr" style="background: #ffe407;"></span>
+</a>
+<a href="#" class="">
+    <span class="btn btn-clr" style="background: #47cd4f;"></span>
+</a>
+<a href="#" class="">
+    <span class="btn btn-clr" style="background: #cda972;"></span>
+</a>
+<a href="#" class="">
+    <span class="btn btn-clr" style="background: #c2b2cd;"></span>
+</a>
+<a href="#" class="">
+    <span class="btn btn-clr" style="background: #a117cd;"></span>
+</a>
+<a href="#" class="">
+    <span class="btn btn-clr" style="background: #cd3994;"></span>
+</a>
+<a href="#" class="">
+    <span class="btn btn-clr" style="background: #8e3e3c;"></span>
+</a>
+<a href="#" class="">
+    <span class="btn btn-clr" style="background: #255726;"></span>
+</a>
+<a href="#" class="">
+    <span class="btn btn-clr" style="background: #236e6b;"></span>
+</a>
+<a href="#" class="">
+    <span class="btn btn-clr" style="background: #295d60;"></span>
+</a>
+
+<script src="js/fabric.min.js"></script>
+<script>
+    var sp = document.querySelectorAll('.btn-clr');
+
+    for (var i=0; i<sp.length; i++) {
+        sp[i].onclick = function (event) {
+
+            applyFilter(new fabric.Image.filters.BlendColor({
+                color: this.style.background,
+            }));
+            //console.log(this.style.background);
+        }
+    };
+
+    function applyFilter(filter) {
+        var obj = canvas.getActiveObject();
+        //console.log(obj);
+        obj.filters[0] = filter;
+        //console.log(obj);
+        obj.applyFilters();
+        canvas.renderAll();
+    }
+
+    var canvas = new fabric.Canvas('canvas');
+
+
+    fabric.Image.fromURL('img2/Attack_34_side_view_1.png', function (img) {
+        var oImg = img;
+        oImg.id = 'design_1';
+        canvas.add(oImg);
+    });
+
+    fabric.Image.fromURL('img2/Attack_34_side_view_2.png', function (img) {
+        var oImg = img;
+        oImg.id = 'design_2';
+        canvas.add(oImg);
+    });
+
+    fabric.Image.fromURL('img2/Attack_34_side_view_3.png', function (img) {
+        var oImg = img;
+        oImg.id = 'design_3';
+        canvas.add(oImg);
+    });
+
+
+
+
+    var collar = document.querySelector('#design_1');
+    var body = document.querySelector('#design_2');
+    var design = document.querySelector('#design_3');
+
+
+
+    var objInt = setInterval(function () {
+
+        if (canvas._objects.length == 3) {
+
+
+            var SelectObject = function (ObjectName) {
+                canvas.getObjects().forEach(function(o) {
+                    if(o.id === ObjectName) {
+                        canvas.setActiveObject(o);
+                    }
+                })
+            }
+
+            canvas.forEachObject(function(obj) {
+                obj.lockMovementX = true;
+                obj.lockMovementY = true;
+                obj.lockScalingX = true;
+                obj.lockScalingY = true;
+                obj.hasControls = false;
+            });
+
+            canvas.setActiveObject(canvas.item(1));
+
+            body.onclick = function () {
+                document.querySelector('.active').classList.remove('active');
+                this.classList.add('active');
+                SelectObject('design_1');
+            };
+            collar.onclick = function () {
+                document.querySelector('.active').classList.remove('active');
+                this.classList.add('active');
+                SelectObject('design_2');
+            };
+            design.onclick = function () {
+                document.querySelector('.active').classList.remove('active');
+                this.classList.add('active');
+                SelectObject('design_3');
+            };
+
+            clearInterval(objInt);
+
+        }
+
+    }, 10);
+
+
+    //console.log(canvas._objects.length);
+
+    //canvas._objects.filters[0]
+
+</script>
+
+
+
+
+
+
+
+<script>
+    var a = document.getElementsByTagName('a');
+
+    for (var i=0; i<a.length; i++) {
+        a[i].onclick = function (event) {
+            event.preventDefault();
+        }
+    }
+</script>
+
+</body>
+</html>
