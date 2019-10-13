@@ -33,15 +33,21 @@
     }
 </style>
 <div class="left-function">
-    <a href="#" class="btn active" id="design_1">Design 1</a>
-    <a href="#" class="btn" id="design_2" style="display: none">Design 2</a>
-    <a href="#" class="btn" id="design_3">Design 2</a>
+    <a href="#" class="btn active" id="design_3">Design 1</a>
+    <a href="#" class="btn" id="design_1">Design 2</a>
+    <a href="#" class="btn" id="design_2" style="">Design 2</a>
 </div>
 
 
 <canvas id="canvas" width="500" height="600" ></canvas>
 
 
+<a href="#" class="">
+    <span class="btn btn-clr" style="background: #2b2b2b;"></span>
+</a>
+<a href="#" class="">
+    <span class="btn btn-clr" style="background: #ffffff;"></span>
+</a>
 <a href="#" class="">
     <span class="btn btn-clr" style="background: #00cd66;"></span>
 </a>
@@ -81,6 +87,7 @@
 
 <script src="js/fabric.min.js"></script>
 <script>
+
     var sp = document.querySelectorAll('.btn-clr');
 
     for (var i=0; i<sp.length; i++) {
@@ -105,7 +112,7 @@
     var canvas = new fabric.Canvas('canvas');
 
 
-    fabric.Image.fromURL('img2/Attack_34_side_view_1.png', function (img) {
+    fabric.Image.fromURL('img2/Attack_34_side_view_4.png', function (img) {
         var oImg = img;
         oImg.id = 'design_1';
         canvas.add(oImg);
@@ -171,16 +178,25 @@
                 SelectObject('design_3');
             };
 
+
+
+            SelectObject('design_3');
+
+            var obj = canvas.getActiveObject();
+            //console.log(obj);
+            obj.filters[0] = new fabric.Image.filters.BlendColor({
+                color: '#ffe407',
+            });
+            //console.log(obj);
+            obj.applyFilters();
+            canvas.renderAll();
+
             clearInterval(objInt);
 
         }
 
     }, 10);
 
-
-    //console.log(canvas._objects.length);
-
-    //canvas._objects.filters[0]
 
 </script>
 
